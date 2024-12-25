@@ -65,3 +65,23 @@ if [ -f "/data/adb/pif.json" ]; then
     ui_print "- Backup custom pif.json"
     mv -f /data/adb/pif.json /data/adb/pif.json.old
 fi
+
+create_symlink() {
+	# give exec perm to action.sh
+	chmod +x "$MODPATH/action.sh"
+	# symlink action.sh to manager path as 'pif'
+	manager_paths="/data/adb/ap/bin /data/adb/ksu/bin"
+	for i in $manager_paths; do
+		if [ -d $i ]; then
+			echo "- creating symlink in $i"
+			ln -sf /data/adb/modules/playintegrityfix/action.sh $i/pif
+		fi
+	done
+}
+
+# action.sh, ap 10927, ksu 11981
+if { [ "$KSU" = "true" ] && [ "$KSU_VER_CODE" -lt 11981 ]; } || 
+	{ [ "$APATCH" = "true" ] && [ "$APATCH_VER_CODE" -lt 10927 ]; }; then
+	echo "- old manager detected, creating pif symlink"
+	create_symlink
+fi
