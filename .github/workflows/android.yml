@@ -2,7 +2,7 @@ name: Android CI
 
 on:
   push:
-    branches: [ "inject" ]
+    branches: [ "inject", "inject-personal" ]
   pull_request:
     branches: [ "inject" ]
 
