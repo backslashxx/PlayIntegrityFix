@@ -54,6 +54,7 @@ set_random_beta() {
 TEMPDIR="$MODDIR/temp" #fallback
 [ -w /sbin ] && TEMPDIR="/sbin/playintegrityfix"
 [ -w /debug_ramdisk ] && TEMPDIR="/debug_ramdisk/playintegrityfix"
+[ -w /dev ] && TEMPDIR="/dev/playintegrityfix"
 mkdir -p "$TEMPDIR"
 cd "$TEMPDIR"
 
